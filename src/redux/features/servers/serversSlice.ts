@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { Servers } from '../../../models/Servers.models'
+import { Server } from '../../../models/Servers.models'
 import { RootState } from '../../../redux/store'
 import { getServers } from '../../../services/servers.service'
 
 // Define a type for the slice state
 interface ServerState {
-    servers: Servers[]
+    servers: Server[]
     loading: boolean
     error: string | null | undefined
 }
@@ -23,7 +23,6 @@ export const fetchServers = createAsyncThunk(
     async () => {
         try {
             const servers = await getServers()
-            console.log(servers, 'THUNK')
             return servers
         } catch (error: any) {
             throw Error(error.message)
@@ -35,7 +34,7 @@ export const serverSlice = createSlice({
     name: 'servers',
     initialState,
     reducers: {
-        addServers: (state, action: PayloadAction<Servers[]>) => {
+        addServers: (state, action: PayloadAction<Server[]>) => {
             state.servers = [...action.payload]
         },
     },
@@ -46,7 +45,7 @@ export const serverSlice = createSlice({
         }),
             builder.addCase(
                 fetchServers.fulfilled,
-                (state, action: PayloadAction<Servers[]>) => {
+                (state, action: PayloadAction<Server[]>) => {
                     state.loading = false
                     state.error = null
                     state.servers = [...action.payload]

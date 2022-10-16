@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import { Navigate } from 'react-router-dom'
-import { selectToken, storeToken } from '../redux/features/user/userSlice'
-import { useAppSelector, useAppDispatch } from '../redux/hooks'
+import { storeToken } from '../redux/features/user/userSlice'
+import { useAppDispatch } from '../redux/hooks'
 import { login } from '../services/auth.service'
 
 export const LoginForm = () => {
     const dispatch = useAppDispatch()
-    const authUser = useAppSelector(selectToken)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -32,48 +30,52 @@ export const LoginForm = () => {
         }
     }
 
-    if (authUser.token) {
-        return <Navigate to="/" />
-    }
-
     return (
-        <form className="mt-6" onSubmit={handleSubmit}>
-            <div className="mb-2">
-                <label
-                    htmlFor="email"
-                    className="block text-sm font-semibold text-gray-800"
-                >
-                    Email
-                </label>
-                <input
-                    name="email"
-                    value={email}
-                    onChange={onChangeEmail}
-                    type="string"
-                    className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                />
+        <>
+            <div className="my-auto p-4 w-full max-w-sm rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+                <form className="space-y-6" onSubmit={handleSubmit}>
+                    <div>
+                        <label
+                            htmlFor="username"
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        >
+                            Username
+                        </label>
+                        <input
+                            onChange={onChangeEmail}
+                            type="username"
+                            name="username"
+                            id="username"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="tesonet ;)"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label
+                            htmlFor="password"
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        >
+                            Your password
+                        </label>
+                        <input
+                            onChange={onChangePassword}
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="••••••••"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            required
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        Login to your account
+                    </button>
+                </form>
             </div>
-            <div className="mb-2">
-                <label
-                    htmlFor="password"
-                    className="block text-sm font-semibold text-gray-800"
-                >
-                    Password
-                </label>
-                <input
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={onChangePassword}
-                    className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                />
-            </div>
-
-            <div className="mt-6">
-                <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
-                    Login
-                </button>
-            </div>
-        </form>
+        </>
     )
 }
