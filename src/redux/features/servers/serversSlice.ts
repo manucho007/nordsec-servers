@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from '../../store'
-import { Servers } from '../../models/Servers.models'
+import { Servers } from '../../../models/Servers.models'
+import { RootState } from '../../../redux/store'
 
 // Define a type for the slice state
 interface ServerState {
@@ -27,6 +27,6 @@ export const serverSlice = createSlice({
 export const { getServers } = serverSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.servers
+export const selectServers = (state: RootState) => state.servers
 
 export default serverSlice.reducer
