@@ -19,19 +19,16 @@ describe('login', () => {
             }),
         ) as jest.Mock
         await expect(login('testmail', 'testpwd')).resolves.toEqual(data)
-        expect(global.fetch).toHaveBeenCalledWith(
-            'https://playground.tesonet.lt/v1/tokens',
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    username: 'testmail',
-                    password: 'testpwd',
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+        expect(global.fetch).toHaveBeenCalledWith('tokens', {
+            method: 'POST',
+            body: JSON.stringify({
+                username: 'testmail',
+                password: 'testpwd',
+            }),
+            headers: {
+                'Content-Type': 'application/json',
             },
-        )
+        })
     })
     test('should return an error message if there is a problem', async () => {
         global.fetch = jest.fn(() =>
