@@ -6,10 +6,12 @@ import { Login } from './pages/Login'
 function App() {
     return (
         <>
-            <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/" element={<Home />} />
-            </Routes>
+            <div className="bg-gray-800">
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/" element={<Home />} />
+                </Routes>
+            </div>
         </>
     )
 }

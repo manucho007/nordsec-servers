@@ -1,15 +1,27 @@
 import React from 'react'
 import { LoginForm } from '../components/LoginForm'
+import { Navigate } from 'react-router-dom'
+import { selectUser } from '../redux/features/user/userSlice'
+import { useAppSelector } from '../redux/hooks'
+import ErrorBanner from '../components/ErrorBanner'
 
-export default function Login() {
+export const Login = () => {
+    const { token, error } = useAppSelector(selectUser)
+
+    if (token) {
+        return <Navigate to="/" />
+    }
+
     return (
-        <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-            <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
-                <h1 className="text-3xl font-semibold text-center text-purple-700 underline">
-                    Welcome Back
-                </h1>
+        <>
+            <div className="bg-gray-900 flex justify-center min-h-screen py-auto">
+                {error && (
+                    <div className="absolute mx-auto w-2/3 md:w-1/3 mt-16">
+                        <ErrorBanner message={error} />
+                    </div>
+                )}
                 <LoginForm />
             </div>
-        </div>
+        </>
     )
 }
