@@ -7,7 +7,7 @@ import { login } from '../../../services/auth.service'
 interface UserState {
     username: string | undefined
     token: string | undefined
-    error: null | string | undefined
+    error: undefined | string
 }
 
 // checks if the token rxists in localstorage
@@ -19,19 +19,26 @@ const tokenFromStorage = localStorage.getItem('token')
 const initialState: UserState = {
     username: undefined,
     token: tokenFromStorage,
-    error: null,
+    error: undefined,
 }
 
 export const logIn = createAsyncThunk(
     'auth/login',
-    async ({ username, password }: { username: string; password: string }) => {
+    async (
+        { username, password }: { username: string; password: string },
+        { rejectWithValue },
+    ) => {
         try {
             const token = await login(username, password)
-            console.log(token, 'LOGIN')
+            if (!token) throw new Error()
+            return { token, username }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
 
-            return token
-        } catch (error: any) {
-            throw Error(error.message)
+            return rejectWithValue(err.response.data)
         }
     },
 )
@@ -53,12 +60,13 @@ export const userSlice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(logIn.fulfilled, (state, action) => {
-            state.error = null
-            state.token = action.payload.token
+            state.error = undefined
+            state.token = action.payload?.token.token
+            state.username = action.payload?.username
         }),
-            builder.addCase(logIn.rejected, (state, action) => {
-                state.token = undefined
-                state.error = action.error.message
+            builder.addCase(logIn.rejected, state => {
+                state.error =
+                    'The username or password entered does not match any account, please verify your data and try again '
             })
     },
 })
@@ -66,6 +74,6 @@ export const userSlice = createSlice({
 export const { storeToken, deleteToken } = userSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectToken = (state: RootState) => state.user
+export const selectUser = (state: RootState) => state.user
 
 export default userSlice.reducer

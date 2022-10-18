@@ -2,7 +2,10 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import serversReducer from './features/servers/serversSlice'
 import userReducer from './features/user/userSlice'
 
-const rootReducer = { servers: serversReducer, user: userReducer }
+const rootReducer = combineReducers({
+    servers: serversReducer,
+    user: userReducer,
+})
 
 export const store = configureStore({
     reducer: rootReducer,
