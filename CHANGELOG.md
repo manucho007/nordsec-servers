@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/manucho007/nordsec-servers/compare/v1.0.0...v1.1.0) (2022-10-18)
+
+
+### Features
+
+* added HomePage, list of servers & error handling ([ddcd6cd](https://github.com/manucho007/nordsec-servers/commit/ddcd6cd777086bd64f39a5acc284a94f8c13e4b9))
+
 ## 1.0.0 (2022-10-16)
 
 ### Features
