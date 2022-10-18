@@ -15,6 +15,7 @@ describe('login', () => {
     test('should make a POST request with the correct parameters and return the token', async () => {
         global.fetch = jest.fn(() =>
             Promise.resolve({
+                status: 200,
                 json: () => Promise.resolve(data),
             }),
         ) as jest.Mock
@@ -30,17 +31,13 @@ describe('login', () => {
             },
         })
     })
-    test('should return an error message if there is a problem', async () => {
+    test('should throw an error if there is a problem', async () => {
         global.fetch = jest.fn(() =>
             Promise.resolve({
-                json: () => Promise.resolve(new Error('Something went wrong!')),
+                status: 201,
             }),
         ) as jest.Mock
 
-        try {
-            await login('testmail', 'testpwd')
-        } catch (error) {
-            expect(error).toBe('Something went wrong!')
-        }
+        await expect(login('testmail', 'testpwd')).rejects.toThrow()
     })
 })
