@@ -1,22 +1,17 @@
-const API_URL = 'https://playground.tesonet.lt/v1/'
-
 export const login = async (username: string, password: string) => {
-    try {
-        const response = await fetch(API_URL + 'tokens', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password }),
-        })
-        const responseToken = (await response.json()) as { token: string }
-        if (responseToken.token) {
-            localStorage.setItem('user', JSON.stringify(responseToken.token))
-        }
-        return responseToken
-    } catch (error: any) {
-        throw new Error(error.message)
+    const response = await fetch('tokens', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+    }).then()
+    if (response.status !== 200) throw new Error()
+    const responseToken = await response.json()
+    if (responseToken.token) {
+        localStorage.setItem('token', JSON.stringify(responseToken.token))
     }
+    return responseToken
 }
 
 export const logout = () => {
-    localStorage.removeItem('user')
+    localStorage.removeItem('token')
 }

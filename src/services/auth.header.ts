@@ -1,8 +1,7 @@
 export const authHeader = () => {
-    const user = JSON.parse(localStorage.getItem('user') as string)
-
-    if (user && user.token) {
-        return 'Bearer ' + user.token
+    const token = JSON.parse(localStorage.getItem('token') as string)
+    if (token) {
+        return 'Bearer ' + token
     } else {
         return ''
     }
