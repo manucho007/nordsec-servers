@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/nordsec-servers/static/css/main.6b874314.css",
-    "main.js": "/nordsec-servers/static/js/main.55cf6ab4.js",
+    "main.js": "/nordsec-servers/static/js/main.db04d6a8.js",
     "static/js/787.a616014c.chunk.js": "/nordsec-servers/static/js/787.a616014c.chunk.js",
     "index.html": "/nordsec-servers/index.html",
     "main.6b874314.css.map": "/nordsec-servers/static/css/main.6b874314.css.map",
-    "main.55cf6ab4.js.map": "/nordsec-servers/static/js/main.55cf6ab4.js.map",
+    "main.db04d6a8.js.map": "/nordsec-servers/static/js/main.db04d6a8.js.map",
     "787.a616014c.chunk.js.map": "/nordsec-servers/static/js/787.a616014c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6b874314.css",
-    "static/js/main.55cf6ab4.js"
+    "static/js/main.db04d6a8.js"
   ]
 }
